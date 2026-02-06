@@ -25,6 +25,7 @@ data class Contest(
     val season: String?
 )
 
+//data to be stored in room database
 data class StoredContestData(
     val id: Int,
     val name: String,
@@ -40,6 +41,7 @@ data class StoredContestData(
     val alarm: List<LocalTime>
 )
 
+//API data revied datastructure
 data class ContestResponse(
     val status: String,
     val result: List<Contest>

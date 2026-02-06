@@ -8,6 +8,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 
+//basic home view basicaly lazy column view
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = viewModel()

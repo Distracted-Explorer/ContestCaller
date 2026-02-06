@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
+//backend of data working in app
 class HomeViewModel : ViewModel() {
     private val repository = ResponseRepository()
     private val _contests = MutableStateFlow<List<Contest>>(emptyList())
