@@ -1,6 +1,5 @@
 package com.example.contestcaller
 
-import java.time.LocalDateTime
 import java.time.LocalTime
 
 
@@ -17,7 +16,7 @@ data class Contest(
     val preparedBy:	String?,
     val websiteUrl:	String?,
     val description: String?,
-    val difficulty:	Integer?,
+    val difficulty:	Int?,
     val kind: String?,
     val icpcRegion: String?,
     val country: String?,
@@ -34,9 +33,9 @@ data class StoredContestData(
     val frozen: Boolean,
     val durationSeconds: Int,
     val freezeDurationSeconds: Int?,
-    val startTimeSeconds: LocalDateTime,
+    val startTimeSeconds: Int?,  //todo need to convert to date and time
     val relativeTimeSeconds: Int?,
-    val difficulty:	Integer?,
+    val difficulty:	Int?,
     val alarmSetStatus: Boolean,
     val alarm: List<LocalTime>
 )
@@ -45,4 +44,20 @@ data class StoredContestData(
 data class ContestResponse(
     val status: String,
     val result: List<Contest>
+)
+
+val tempStoredData: StoredContestData= StoredContestData(
+    id = 11,
+    name= "NEW Contest",
+    type= "hard",
+    phase= "before",
+    frozen= true,
+    durationSeconds= 18000,
+    freezeDurationSeconds= 5000,  //todo need to convert to date and time
+    startTimeSeconds=25000, //todo need to convert to date and time
+    relativeTimeSeconds=6000,   //todo need to convert to date and time
+    difficulty= 5,
+    alarmSetStatus= false,  //todo need to update or set alarms
+    alarm= listOf()  //todo 9need to work on default value for this
+
 )
