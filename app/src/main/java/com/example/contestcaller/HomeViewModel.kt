@@ -19,12 +19,14 @@ class HomeViewModel : ViewModel() {
     private val repository = ResponseRepository()
     private val _contests = MutableStateFlow<List<Contest>>(emptyList())
 
-    // 👇 DERIVED STATE (this is the missing piece)
+    // DERIVED STATE
     val contests: StateFlow<List<StoredContestData>> =
         _contests
+            // is as for each giving output for every incomming data we find
             .map { contestList ->
                 neededValue(contestList)
             }
+            //need to study what it ment
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5000),

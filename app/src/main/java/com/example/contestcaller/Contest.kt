@@ -46,6 +46,7 @@ data class ContestResponse(
     val result: List<Contest>
 )
 
+//temp data for preview to check
 val tempStoredData: StoredContestData= StoredContestData(
     id = 11,
     name= "NEW Contest",
