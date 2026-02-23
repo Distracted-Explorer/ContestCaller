@@ -6,13 +6,13 @@ plugins {
 android {
     namespace = "com.example.contestcaller"
     compileSdk {
-        version = release(34)
+        version = release(36)
     }
 
     defaultConfig {
         applicationId = "com.example.contestcaller"
-        minSdk = 21
-        targetSdk = 34
+        minSdk = 26
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 

@@ -62,3 +62,5 @@ val tempStoredData: StoredContestData= StoredContestData(
     alarm= listOf()  //todo 9need to work on default value for this
 
 )
+
+val tempList: List<StoredContestData> = listOf(tempStoredData,tempStoredData,tempStoredData,tempStoredData)
