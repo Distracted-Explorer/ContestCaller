@@ -1,6 +1,7 @@
 package com.example.contestcaller
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -25,18 +26,25 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import kotlinx.coroutines.delay
+import org.w3c.dom.Text
 import kotlin.math.absoluteValue
 
 //basic home view basicaly lazy column view
@@ -160,6 +168,10 @@ fun CardItem(
                 Modifier.padding(15.dp).fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
                 ) {
+                    Image(
+                        painter = painterResource(R.drawable.code_forces),
+                        contentDescription = "codeforces",
+                    )
                     Text(contest.id.toString())
                     Text(contest.name, modifier = Modifier.padding(end = 50.dp))
                 }
@@ -167,12 +179,65 @@ fun CardItem(
                     Modifier.padding(15.dp).fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
-                    Text(contest.difficulty.toString()) //todo convert to stars
-                    Text(contest.startTimeSeconds.toString())
-                    Text(contest.durationSeconds.toString())
+                    Text(contest.startTime)
+                    if(contest.startTimeSeconds*1000 <= System.currentTimeMillis())
+                        timeRemainingInContest(contest.durationSeconds*1000,contest.startTimeSeconds)
+                    else Text(convertDurationToTime(contest.durationSeconds))
                 }
+//                Row(
+//                    Modifier.padding(15.dp).fillMaxWidth(),
+//                    horizontalArrangement = Arrangement.SpaceAround
+//                ) {
+//                    Text(System.currentTimeMillis().toString())
+////                    timeRemainingInContest(contest.durationSeconds,contest.startTimeSeconds)
+//                }
+//                Row(
+//                    Modifier.padding(15.dp).fillMaxWidth(),
+//                    horizontalArrangement = Arrangement.SpaceAround
+//                ) {
+//                    Text((contest.startTimeSeconds*1000).toString())
+////                    timeRemainingInContest(contest.durationSeconds,contest.startTimeSeconds)
+//                }
             }
         }
+    }
+}
+
+@Composable
+fun timeRemainingInContest(durationOfTime : Long,contestStartTime : Long){
+    val startTimeMillis = contestStartTime * 1000
+    val now = System.currentTimeMillis()
+    var remainingTime by remember { mutableStateOf(durationOfTime) }
+
+    LaunchedEffect(Unit) {
+        while (true) {
+            val currentTime = System.currentTimeMillis()
+            val elapsed = currentTime - startTimeMillis
+            val newRemaining = durationOfTime - elapsed
+
+            if (newRemaining <= 0) {
+                remainingTime = 0
+                break
+            }
+            remainingTime = newRemaining/1000
+            delay(1000)
+        }
+    }
+
+    Text(
+        text = convertDurationToTime(remainingTime)
+    )
+}
+
+fun convertDurationToTime(totalSeconds:Long) : String{
+    val days = totalSeconds / (24 * 3600)
+    val hours = (totalSeconds % (24 * 3600)) / 3600
+    val minutes = (totalSeconds % 3600) / 60
+    val seconds = totalSeconds % 60
+    return if (days > 0) {
+        String.format("%01dD %02dHr %02dMin %02dSec", days, hours, minutes, seconds)
+    } else {
+        String.format("%02dHr %02dMin %02dSec", hours, minutes, seconds)
     }
 }
 

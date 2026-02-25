@@ -9,9 +9,9 @@ data class Contest(
     val type: String,
     val phase: String,
     val frozen: Boolean,
-    val durationSeconds: Int,
+    val durationSeconds: Long,
     val freezeDurationSeconds: Int?,
-    val startTimeSeconds: Int?,
+    val startTimeSeconds: Long,
     val relativeTimeSeconds: Int?,
     val preparedBy:	String?,
     val websiteUrl:	String?,
@@ -31,11 +31,9 @@ data class StoredContestData(
     val type: String,
     val phase: String,
     val frozen: Boolean,
-    val durationSeconds: Int,
-    val freezeDurationSeconds: Int?,
-    val startTimeSeconds: Int?,  //todo need to convert to date and time
-    val relativeTimeSeconds: Int?,
-    val difficulty:	Int?,
+    val durationSeconds: Long,
+    val startTimeSeconds: Long,
+    val startTime: String,
     val alarmSetStatus: Boolean,
     val alarm: List<LocalTime>
 )
@@ -53,11 +51,9 @@ val tempStoredData: StoredContestData= StoredContestData(
     type= "hard",
     phase= "before",
     frozen= true,
-    durationSeconds= 18000,
-    freezeDurationSeconds= 5000,  //todo need to convert to date and time
-    startTimeSeconds=25000, //todo need to convert to date and time
-    relativeTimeSeconds=6000,   //todo need to convert to date and time
-    difficulty= 5,
+    durationSeconds = 1000,
+    startTimeSeconds = 1000,
+    startTime="05/05/2004",
     alarmSetStatus= false,  //todo need to update or set alarms
     alarm= listOf()  //todo 9need to work on default value for this
 
