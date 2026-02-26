@@ -24,6 +24,7 @@ fun neededValue( _contest: List<Contest> ):List<StoredContestData>{
                     phase= contestItem.phase,
                     frozen= contestItem.frozen,
                     startTime=convertUtcToUserTime(contestItem.startTimeSeconds),
+                    duration = convertDurationToTime(contestItem.durationSeconds),
                     durationSeconds= contestItem.durationSeconds,
                     startTimeSeconds=contestItem.startTimeSeconds,
                     alarmSetStatus= false,  //todo need to update or set alarms
@@ -38,6 +39,7 @@ fun neededValue( _contest: List<Contest> ):List<StoredContestData>{
                     phase= contestItem.phase,
                     frozen= contestItem.frozen,
                     startTime=convertUtcToUserTime(contestItem.startTimeSeconds),
+                    duration = convertDurationToTime(contestItem.durationSeconds),
                     durationSeconds= contestItem.durationSeconds,
                     startTimeSeconds=contestItem.startTimeSeconds,
                     alarmSetStatus= false,  //todo need to update or set alarms
@@ -82,3 +84,14 @@ fun convertUtcToUserTime(epochSeconds: Long): String {
     return zonedDateTime.format(formatter)
 }
 
+fun convertDurationToTime(totalSeconds:Long) : String{
+    val days = totalSeconds / (24 * 3600)
+    val hours = (totalSeconds % (24 * 3600)) / 3600
+    val minutes = (totalSeconds % 3600) / 60
+    val seconds = totalSeconds % 60
+    return if (days > 0) {
+        String.format("%01dD %02dHr %02dMin %02dSec", days, hours, minutes, seconds)
+    } else {
+        String.format("%02dHr %02dMin %02dSec", hours, minutes, seconds)
+    }
+}

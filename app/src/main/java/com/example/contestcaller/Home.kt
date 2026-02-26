@@ -22,7 +22,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -44,7 +43,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.delay
-import org.w3c.dom.Text
 import kotlin.math.absoluteValue
 
 //basic home view basicaly lazy column view
@@ -182,7 +180,7 @@ fun CardItem(
                     Text(contest.startTime)
                     if(contest.startTimeSeconds*1000 <= System.currentTimeMillis())
                         timeRemainingInContest(contest.durationSeconds*1000,contest.startTimeSeconds)
-                    else Text(convertDurationToTime(contest.durationSeconds))
+                    else Text(contest.duration)
                 }
 //                Row(
 //                    Modifier.padding(15.dp).fillMaxWidth(),
@@ -229,17 +227,7 @@ fun timeRemainingInContest(durationOfTime : Long,contestStartTime : Long){
     )
 }
 
-fun convertDurationToTime(totalSeconds:Long) : String{
-    val days = totalSeconds / (24 * 3600)
-    val hours = (totalSeconds % (24 * 3600)) / 3600
-    val minutes = (totalSeconds % 3600) / 60
-    val seconds = totalSeconds % 60
-    return if (days > 0) {
-        String.format("%01dD %02dHr %02dMin %02dSec", days, hours, minutes, seconds)
-    } else {
-        String.format("%02dHr %02dMin %02dSec", hours, minutes, seconds)
-    }
-}
+
 
 @Preview(
     name="Dark Mode",

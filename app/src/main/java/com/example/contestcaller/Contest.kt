@@ -34,6 +34,7 @@ data class StoredContestData(
     val durationSeconds: Long,
     val startTimeSeconds: Long,
     val startTime: String,
+    val duration: String,
     val alarmSetStatus: Boolean,
     val alarm: List<LocalTime>
 )
@@ -54,6 +55,7 @@ val tempStoredData: StoredContestData= StoredContestData(
     durationSeconds = 1000,
     startTimeSeconds = 1000,
     startTime="05/05/2004",
+    duration = "2:2:2",
     alarmSetStatus= false,  //todo need to update or set alarms
     alarm= listOf()  //todo 9need to work on default value for this
 
